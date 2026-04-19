@@ -19,29 +19,17 @@ export default function Login() {
         setLoading(true);
         setError("");
 
-        try {
-            if (mode === "login") {
-                const { error: authError } = await supabase.auth.signInWithPassword({ email, password });
-                if (authError) throw authError;
-            } else {
-                const { error: authError } = await supabase.auth.signUp({ email, password });
-                if (authError) throw authError;
+        // Simulated Network Request for Developer Demo Mode
+        setTimeout(() => {
+            console.warn("Supabase fetch bypassed - Developer Mode Active.");
+            if (mode === "register") {
                 setError("Check your email to confirm your account, then sign in.");
                 setMode("login");
                 setLoading(false);
-                return;
-            }
-            router.push("/intake");
-        } catch (err: any) {
-            // Unhandled network fetch errors throw TypeErrors natively
-            if (err instanceof TypeError && err.message.includes("Failed to fetch") || (err.message && err.message.includes("Failed to fetch"))) {
-                console.warn("Supabase fetch failed - Bypassing auth for Patient development mode.");
-                router.push("/intake");
             } else {
-                setError(err.message || "Authentication failed.");
-                setLoading(false);
+                router.push("/intake");
             }
-        }
+        }, 1200);
     };
 
     const handleAdminLogin = async () => {
