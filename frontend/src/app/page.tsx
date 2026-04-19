@@ -12,6 +12,29 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 overflow-x-hidden selection:bg-cyan-500/30">
       
+      {/* GLOBAL NAVIGATION HEADER */}
+      <header className="fixed top-0 left-0 w-full z-50 p-4 transition-all duration-300 backdrop-blur-xl bg-slate-950/60 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-2 group">
+            <Cpu className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
+            <span className="font-bold text-lg text-white">Femlytix<span className="text-cyan-400">.AI</span></span>
+          </Link>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
+            <Link href="/" className="text-cyan-400 transition-colors">Home</Link>
+            <Link href="#how-it-works" className="text-slate-300 hover:text-cyan-400 transition-colors">How It Works</Link>
+            <Link href="/intake" className="text-slate-300 hover:text-cyan-400 transition-colors">AI Diagnostics</Link>
+            <Link href="/login" className="text-slate-300 hover:text-cyan-400 transition-colors">Patient Web</Link>
+          </nav>
+          <div className="hidden md:block">
+            <Link href="/admin">
+              <button className="px-5 py-2 text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 transition-colors duration-300">
+                Staff Portal
+              </button>
+            </Link>
+          </div>
+        </div>
+      </header>
+
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex flex-col items-center justify-center p-6 pt-20">
         {/* Background Decor */}
@@ -106,7 +129,7 @@ export default function Home() {
       </section>
 
       {/* HOW IT WORKS SECTION */}
-      <section className="py-32 relative">
+      <section id="how-it-works" className="py-32 relative">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-3">Diagnostic Pipeline</h2>
