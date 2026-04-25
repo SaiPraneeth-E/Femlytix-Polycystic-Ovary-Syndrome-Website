@@ -144,7 +144,7 @@ async def lifespan(app: FastAPI):
     print(f"[{DEVICE}] Loading PyTorch Models...")
     try:
         # Load preprocessor
-        prep_path = r"d:\PCOS\preprocessor (1).pkl"
+        prep_path = "preprocessor.pkl"
         if os.path.exists(prep_path):
             preprocessor = joblib.load(prep_path)
             if hasattr(preprocessor.imputer, 'strategy') and not hasattr(preprocessor.imputer, '_fill_dtype'):
@@ -155,7 +155,7 @@ async def lifespan(app: FastAPI):
             print(f" [FAIL] Preprocessor not found at {prep_path}")
 
         # Load Classifier
-        cls_path = r"d:\PCOS\classifier (1).pt"
+        cls_path = "classifier.pt"
         if os.path.exists(cls_path) and preprocessor:
             classifier = PCOSClassifier(preprocessor.n_features).to(DEVICE)
             classifier.load_state_dict(torch.load(cls_path, map_location=DEVICE))
@@ -163,7 +163,7 @@ async def lifespan(app: FastAPI):
             print(" [OK] Classifier loaded")
         
         # Load UNet
-        unet_path = r"d:\PCOS\unet_seg (1).pt"
+        unet_path = "unet_seg.pt"
         if os.path.exists(unet_path):
             unet = UNet().to(DEVICE)
             unet.load_state_dict(torch.load(unet_path, map_location=DEVICE))
@@ -171,7 +171,7 @@ async def lifespan(app: FastAPI):
             print(" [OK] UNet loaded")
             
         # Load RL Agent
-        rl_path = r"d:\PCOS\dqn_agent (1).pt"
+        rl_path = "dqn_agent.pt"
         if os.path.exists(rl_path):
             agent = DQNAgent(STATE_DIM, N_ACTIONS)
             agent.policy.load_state_dict(torch.load(rl_path, map_location=DEVICE))

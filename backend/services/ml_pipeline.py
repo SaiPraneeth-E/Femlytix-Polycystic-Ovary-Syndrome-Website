@@ -2,8 +2,11 @@ import os
 import requests
 from pydantic import BaseModel
 
+# The URL of your Hugging Face Space or ML service
+ML_SERVICE_URL = os.environ.get("ML_SERVICE_URL", "http://localhost:8001")
+
 def load_models():
-    print("[ml_pipeline.py] Models are managed by external ml_service on port 8001")
+    print(f"[ml_pipeline.py] Orchestrator mode active. Target ML Service: {ML_SERVICE_URL}")
 
 def predict_clinical(data: dict):
     weight = float(data.get("weight", 65))
@@ -78,7 +81,8 @@ def process_ultrasound(image_bytes: bytes, clinical_data: dict = None):
             "hair_growth": c_data.get("hair_growth", 0),
             "weight_gain": c_data.get("weight_gain", 0)
         }
-        ml_resp = requests.post("http://localhost:8001/predict", files=files, data=data_payload, timeout=10)
+        target_url = f"{ML_SERVICE_URL.rstrip('/')}/predict"
+        ml_resp = requests.post(target_url, files=files, data=data_payload, timeout=15)
         if ml_resp.status_code == 200:
             ml_data = ml_resp.json()
             local_res = {
@@ -90,8 +94,10 @@ def process_ultrasound(image_bytes: bytes, clinical_data: dict = None):
                 "cyst_area": ml_data.get("cyst_area", 0.0),
                 "rl_recommendations": ml_data.get("rl_recommendations", [])
             }
+        else:
+            print(f"[ML] Service Error {ml_resp.status_code}: {ml_resp.text}")
     except Exception as e:
-        print(f"[ML] Local Model Skip: {e}")
+        print(f"[ML] Connection to ML Service failed: {e}")
 
     # 2. Parallel Gemini Assistant (Always runs to assist the model)
     api_key = os.environ.get("GEMINI_API_KEY", "")
