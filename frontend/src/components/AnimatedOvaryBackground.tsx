@@ -58,6 +58,7 @@ export default function AnimatedOvaryBackground() {
   const [particles, setParticles] = useState<{ x: string, y: string, duration: number, delay: number }[]>([]);
   const { scrollY } = useScroll();
   const yRange = useTransform(scrollY, [0, 500], [0, -100]);
+  const yRangeOpposite = useTransform(scrollY, [0, 500], [0, 100]);
 
   useEffect(() => {
     setMounted(true);
@@ -85,7 +86,7 @@ export default function AnimatedOvaryBackground() {
         className="absolute top-[20%] left-[10%] w-[30vw] h-[30vw] bg-pink-600/10 rounded-full blur-[100px]" 
       />
       <motion.div 
-        style={{ y: useTransform(scrollY, [0, 500], [0, 100]) }}
+        style={{ y: yRangeOpposite }}
         className="absolute bottom-[20%] right-[10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full blur-[120px]" 
       />
 
