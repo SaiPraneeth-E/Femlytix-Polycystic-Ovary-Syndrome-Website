@@ -42,31 +42,64 @@ export default function Home() {
 
         <motion.div
           style={{ opacity, scale }}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+                delayChildren: 0.3
+              }
+            }
+          }}
           className="z-10 max-w-4xl"
         >
           {/* Central Glowing Icon */}
-          <div className="relative mb-12 inline-block">
-            <div className="absolute inset-0 bg-pink-500 rounded-full blur-[40px] opacity-20 animate-pulse" />
-            <div className="relative bg-slate-900/50 border border-pink-500/20 p-6 rounded-full backdrop-blur-xl shadow-[0_0_50px_rgba(236,72,153,0.15)]">
-              <OvaryIcon className="w-16 h-16 text-pink-500" />
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, scale: 0.5 },
+              show: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100 } }
+            }}
+            className="relative mb-12 inline-block"
+          >
+            <div className="absolute inset-0 bg-pink-500 rounded-full blur-[60px] opacity-20 animate-pulse" />
+            <div className="relative bg-slate-900/50 border border-pink-500/20 p-8 rounded-full backdrop-blur-2xl shadow-[0_0_80px_rgba(236,72,153,0.2)] hover:scale-105 transition-transform duration-500">
+              <OvaryIcon className="w-20 h-20 text-pink-500" />
             </div>
-          </div>
+          </motion.div>
 
-          <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-8 leading-none">
+          <motion.h1 
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+            }}
+            className="text-7xl md:text-9xl font-black tracking-tighter mb-8 leading-none"
+          >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 drop-shadow-2xl">
               Femlytix
             </span>
-          </h1>
+          </motion.h1>
 
-          <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+          <motion.p 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+            }}
+            className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium"
+          >
             Pioneering women&apos;s health with multimodal diagnostics for Polycystic Ovary Syndrome. 
             Early detection, AI risk analysis, and personalized metabolic tracking.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <motion.div 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+            }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          >
             <Link href="/intake">
               <button className="px-10 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(236,72,153,0.3)] hover:shadow-[0_0_40px_rgba(236,72,153,0.5)] transition-all hover:-translate-y-1">
                 Start Risk Assessment
@@ -78,13 +111,7 @@ export default function Home() {
                 Patient Login
               </button>
             </Link>
-
-            <Link href="/login">
-              <button className="px-10 py-4 bg-slate-900/40 backdrop-blur-md border border-purple-900/30 hover:border-purple-500/50 text-slate-400 hover:text-white rounded-2xl font-bold text-lg transition-all hover:-translate-y-1 shadow-[0_0_20px_rgba(139,92,246,0.1)]">
-                Admin Login
-              </button>
-            </Link>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Scroll Indicator */}
@@ -98,23 +125,67 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* ADDITIONAL SECTIONS (Keeping them but updating theme to match) */}
-      <section id="how-it-works" className="py-32 relative bg-slate-950">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-sm font-bold text-pink-500 tracking-widest uppercase mb-3">Diagnostic Pipeline</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">How Femlytix Works</h3>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Our platform orchestrates a powerful multi-stage Machine Learning approach combining tabular clinical records with computer-vision ultrasound scans.
+      {/* CLINICAL PCOS WORKFLOW (Flowchart) */}
+      <section id="how-it-works" className="py-32 relative bg-slate-950 overflow-hidden">
+        {/* Background decorative flow line */}
+        <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-pink-500/20 to-transparent hidden md:block" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-24">
+            <h2 className="text-xs font-bold text-pink-500 tracking-[0.4em] uppercase mb-4">Precision Pipeline</h2>
+            <h3 className="text-5xl md:text-6xl font-black text-white mb-8 tracking-tighter italic">Clinical PCOS Workflow</h3>
+            <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
+              Our diagnostic architecture mirrors professional clinical protocols, synthesizing multimodal data streams through an ensemble AI infrastructure.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <StepCard number="01" icon={<FileText />} title="Intake Form" desc="Submit age, BMI, and hormonal assays (FSH/LH levels) via our secure patient portal." />
-            <StepCard number="02" icon={<Database />} title="Image Upload" desc="Attach sonographic ultrasound imaging of the ovaries for neural network routing." />
-            <StepCard number="03" icon={<CpuIcon />} title="AI Analysis" desc="Our PyTorch Ensemble Models cross-verify tabular risk data against vision-based follicle patterns." />
-            <StepCard number="04" icon={<CheckCircle />} title="Prescription" desc="The LLM Orchestrator generates a fully synthesized PDF risk report and lifestyle modification plan." />
-          </div>
+          <motion.div 
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2
+                }
+              }
+            }}
+            className="grid grid-cols-1 md:grid-cols-4 gap-12 relative"
+          >
+            {/* Connection Arrows (Mobile Hidden) */}
+            <div className="absolute top-[3.5rem] left-[15%] right-[15%] hidden md:flex justify-between pointer-events-none opacity-30">
+              <div className="w-full h-[1px] bg-gradient-to-r from-pink-500 to-purple-500" />
+              <div className="w-full h-[1px] bg-gradient-to-r from-purple-500 to-indigo-500" />
+              <div className="w-full h-[1px] bg-gradient-to-r from-indigo-500 to-blue-500" />
+            </div>
+
+            <StepCard 
+              number="01" 
+              icon={<FileText className="w-7 h-7" />} 
+              title="Clinical Intake" 
+              desc="Collection of patient history including menstrual regularity, hirsutism assessment, and biometric tracking." 
+            />
+            <StepCard 
+              number="02" 
+              icon={<Database className="w-7 h-7" />} 
+              title="Biochemical Screening" 
+              desc="Integration of hormonal panels (FSH, LH, Testosterone) and metabolic markers for systemic risk evaluation." 
+            />
+            <StepCard 
+              number="03" 
+              icon={<Brain className="w-7 h-7" />} 
+              title="Multimodal AI Analysis" 
+              desc="Synchronized processing of clinical data and sonographic patterns via our PyTorch ensemble pipeline." 
+            />
+            <StepCard 
+              number="04" 
+              icon={<CheckCircle className="w-7 h-7" />} 
+              title="Diagnostic Synthesis" 
+              desc="Generation of a comprehensive PCOS risk profile, including follicle-count-per-ovary (FNPO) and clinical plans." 
+            />
+          </motion.div>
         </div>
       </section>
 
@@ -134,9 +205,6 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <h6 className="text-xl font-bold text-white">Edupulapati Sai Praneeth</h6>
                 <div className="flex flex-col gap-3">
-                  <a href="mailto:edupulapatisaipraneeth12345@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
-                    <Mail className="w-4 h-4" /> edupulapatisaipraneeth12345@gmail.com
-                  </a>
                   <a href="https://www.linkedin.com/in/edupulapatisaipraneeth/" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
                     <Linkedin className="w-4 h-4" /> LinkedIn Profile
                   </a>
@@ -145,9 +213,6 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <h6 className="text-xl font-bold text-white">Liel Stephen</h6>
                 <div className="flex flex-col gap-3">
-                  <a href="mailto:lielstephen@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
-                    <Mail className="w-4 h-4" /> lielstephen@gmail.com
-                  </a>
                   <a href="https://github.com/LielStephen" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
                     <Github className="w-4 h-4" /> GitHub: LielStephen
                   </a>
@@ -170,18 +235,32 @@ export default function Home() {
 
 function StepCard({ number, icon, title, desc }: { number: string, icon: React.ReactNode, title: string, desc: string }) {
   return (
-    <div className="relative p-8 rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-pink-500/20 transition-all group overflow-hidden">
-      <div className="absolute -top-4 -right-4 text-8xl font-black text-white/5 group-hover:text-pink-500/10 transition-colors pointer-events-none">
+    <motion.div 
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+      }}
+      whileHover={{ y: -5 }}
+      className="relative p-8 rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-pink-500/30 transition-all group overflow-hidden"
+    >
+      {/* Biological pulse effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-pink-500/0 to-pink-500/0 group-hover:from-pink-500/5 group-hover:to-purple-500/5 transition-all duration-500" />
+      
+      <div className="absolute -top-4 -right-4 text-8xl font-black text-white/5 group-hover:text-pink-500/10 transition-colors pointer-events-none select-none">
         {number}
       </div>
+      
       <div className="relative z-10">
-        <div className="w-14 h-14 bg-slate-800 text-pink-500 rounded-2xl flex items-center justify-center mb-8 border border-slate-700 group-hover:scale-110 transition-transform">
+        <div className="w-16 h-16 bg-slate-800 text-pink-500 rounded-2xl flex items-center justify-center mb-8 border border-slate-700 shadow-xl group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-white transition-all duration-500">
           {icon}
         </div>
-        <h4 className="text-xl font-bold text-white mb-3 tracking-tight">{title}</h4>
-        <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+        <h4 className="text-2xl font-bold text-white mb-4 tracking-tight group-hover:text-pink-400 transition-colors">{title}</h4>
+        <p className="text-sm text-slate-400 leading-relaxed font-medium">{desc}</p>
       </div>
-    </div>
+
+      {/* Connection dot */}
+      <div className="absolute bottom-4 right-4 w-1 h-1 bg-pink-500/20 rounded-full group-hover:scale-[10] group-hover:opacity-0 transition-all duration-700" />
+    </motion.div>
   );
 }
 

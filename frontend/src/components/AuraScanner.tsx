@@ -29,7 +29,7 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
   }, [isScanning]);
 
   return (
-    <div className="relative w-full aspect-square md:aspect-video bg-slate-950 rounded-2xl border border-slate-700 overflow-hidden shadow-[0_0_50px_rgba(0,180,255,0.15)] group">
+    <div className="relative w-full aspect-square md:aspect-video bg-slate-950 rounded-2xl border border-slate-700 overflow-hidden shadow-[0_0_50px_rgba(236,72,153,0.15)] group">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 pointer-events-none" />
 
@@ -45,7 +45,7 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
             />
             
             {/* Dark Color Burn Overlay for medical feel */}
-            <div className="absolute inset-0 bg-cyan-900/20 mix-blend-color pointer-events-none" />
+            <div className="absolute inset-0 bg-pink-900/20 mix-blend-color pointer-events-none" />
 
             {/* Simulated Scan Line (Top to Bottom) */}
             <AnimatePresence>
@@ -54,7 +54,7 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
                   initial={{ top: "0%" }}
                   animate={{ top: "100%" }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="absolute left-0 right-0 h-4 bg-gradient-to-b from-transparent to-cyan-400/50 border-b-2 border-cyan-400 z-20 pointer-events-none shadow-[0_0_20px_rgba(34,211,238,0.8)]"
+                  className="absolute left-0 right-0 h-4 bg-gradient-to-b from-transparent to-pink-400/50 border-b-2 border-pink-400 z-20 pointer-events-none shadow-[0_0_20px_rgba(236,72,153,0.8)]"
                 />
               )}
             </AnimatePresence>
@@ -70,7 +70,7 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
                 style={{ top: `${spot.y}%`, left: `${spot.x}%` }}
               >
                 {/* Targeting Crosshair */}
-                <Crosshair className="absolute text-cyan-400 w-8 h-8 opacity-70 animate-spin-slow" />
+                <Crosshair className="absolute text-pink-400 w-8 h-8 opacity-70 animate-spin-slow" />
                 
                 {/* Pulsing Core */}
                 <div className="w-4 h-4 bg-red-500/80 rounded-full shadow-[0_0_15px_rgba(239,68,68,1)] animate-pulse" />
@@ -81,11 +81,11 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
                 {/* Label Line & Text */}
                 <div className="absolute left-8 bottom-8 pointer-events-none">
                   <svg className="w-16 h-16 absolute -bottom-2 -left-2 overflow-visible">
-                    <line x1="0" y1="64" x2="32" y2="32" stroke="#06b6d4" strokeWidth="1" strokeDasharray="2,2" />
-                    <line x1="32" y1="32" x2="64" y2="32" stroke="#06b6d4" strokeWidth="1" />
+                    <line x1="0" y1="64" x2="32" y2="32" stroke="#ec4899" strokeWidth="1" strokeDasharray="2,2" />
+                    <line x1="32" y1="32" x2="64" y2="32" stroke="#ec4899" strokeWidth="1" />
                   </svg>
-                  <div className="absolute left-[64px] bottom-[34px] whitespace-nowrap bg-slate-900/80 border border-cyan-900/50 px-2 py-0.5 rounded backdrop-blur-md">
-                    <span className="text-[9px] font-mono text-cyan-300 uppercase tracking-wider">
+                  <div className="absolute left-[64px] bottom-[34px] whitespace-nowrap bg-slate-900/80 border border-pink-900/50 px-2 py-0.5 rounded backdrop-blur-md">
+                    <span className="text-[9px] font-mono text-pink-300 uppercase tracking-wider">
                       Area: {spot.area}px²
                     </span>
                   </div>
@@ -95,8 +95,8 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
 
             {/* Holographic scan overlay text */}
             <div className="absolute top-4 left-4 z-40 flex flex-col gap-1 pointer-events-none">
-              <span className="text-[10px] font-mono text-cyan-500 bg-black/40 px-1">TGT: PELVIC_ULTRASOUND</span>
-              <span className="text-[10px] font-mono text-cyan-500 bg-black/40 px-1">MDL: UNET_SEG_V2</span>
+              <span className="text-[10px] font-mono text-pink-500 bg-black/40 px-1">TGT: PELVIC_ULTRASOUND</span>
+              <span className="text-[10px] font-mono text-pink-500 bg-black/40 px-1">MDL: UNET_SEG_V2</span>
               {scanComplete && (
                 <span className="text-[10px] font-mono text-rose-400 bg-black/40 px-1 animate-pulse">
                   DETECTED: {spots.length} ANOMALIES
@@ -106,7 +106,7 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
             
             <div className="absolute bottom-4 right-4 z-40 pointer-events-none">
               <div className="flex items-center gap-2">
-                <Activity className={`w-4 h-4 ${scanComplete ? 'text-cyan-500' : 'text-amber-500 animate-pulse'}`} />
+                <Activity className={`w-4 h-4 ${scanComplete ? 'text-pink-500' : 'text-amber-500 animate-pulse'}`} />
                 <span className="text-[10px] font-mono text-slate-300">
                   {scanComplete ? 'ANALYSIS COMPLETE' : 'SCANNING MATRIX...'}
                 </span>
@@ -117,17 +117,17 @@ export default function AuraScanner({ imageUrl, spots = [], isScanning = false }
       ) : (
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center space-y-4">
-            <div className="w-16 h-16 rounded-full border-2 border-slate-700 border-t-cyan-500 animate-spin mx-auto" />
+            <div className="w-16 h-16 rounded-full border-2 border-slate-700 border-t-pink-500 animate-spin mx-auto" />
             <p className="text-sm font-mono text-slate-500">AWAITING IMAGE DATA STREAM...</p>
           </div>
         </div>
       )}
 
       {/* Decorative cyber corners */}
-      <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-cyan-500/50 m-4 rounded-tl-lg" />
-      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-cyan-500/50 m-4 rounded-tr-lg" />
-      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-cyan-500/50 m-4 rounded-bl-lg" />
-      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500/50 m-4 rounded-br-lg" />
+      <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-pink-500/50 m-4 rounded-tl-lg" />
+      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-pink-500/50 m-4 rounded-tr-lg" />
+      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-pink-500/50 m-4 rounded-bl-lg" />
+      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-pink-500/50 m-4 rounded-br-lg" />
     </div>
   );
 }
