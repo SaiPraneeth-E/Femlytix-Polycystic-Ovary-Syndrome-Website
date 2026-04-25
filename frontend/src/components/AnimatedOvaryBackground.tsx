@@ -3,71 +3,253 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+/* ──────────────────────────────────────────────────────────
+   OVARY ICON – A stylized, anatomically-inspired icon
+   showing the uterus + fallopian tubes + ovaries with
+   animated draw-on and subtle follicle pulsing.
+   ────────────────────────────────────────────────────────── */
 export const OvaryIcon = ({ className }: { className?: string }) => (
   <svg
-    viewBox="0 0 100 100"
+    viewBox="0 0 120 120"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     className={className}
   >
+    <defs>
+      <radialGradient id="ovary-glow-l" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="currentColor" stopOpacity="0.4" />
+        <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="ovary-glow-r" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="currentColor" stopOpacity="0.4" />
+        <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+
+    {/* Uterus body */}
     <motion.path
-      d="M50 25C65 25 75 35 75 50C75 65 65 75 50 75C35 75 25 65 25 50C25 35 35 25 50 25Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      initial={{ pathLength: 0, opacity: 0 }}
-      animate={{ pathLength: 1, opacity: 1 }}
-      transition={{ duration: 2, ease: "easeInOut" }}
-    />
-    <motion.path
-      d="M25 50C15 50 10 40 10 30C10 20 20 15 30 15C40 15 45 20 50 25"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      initial={{ pathLength: 0, opacity: 0 }}
-      animate={{ pathLength: 1, opacity: 1 }}
-      transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-    />
-    <motion.path
-      d="M75 50C85 50 90 40 90 30C90 20 80 15 70 15C60 15 55 20 50 25"
+      d="M52 58 C52 48, 46 42, 46 36 C46 32, 48 30, 52 30 L68 30 C72 30, 74 32, 74 36 C74 42, 68 48, 68 58 C68 72, 60 82, 60 90 C60 82, 52 72, 52 58Z"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="currentColor"
+      fillOpacity="0.08"
       initial={{ pathLength: 0, opacity: 0 }}
       animate={{ pathLength: 1, opacity: 1 }}
-      transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
+      transition={{ duration: 1.8, ease: "easeInOut" }}
     />
-    <motion.circle
-      cx="15" cy="30" r="3"
+
+    {/* Left fallopian tube */}
+    <motion.path
+      d="M46 36 C40 34, 32 30, 26 32 C20 34, 16 38, 18 44 C20 48, 24 48, 26 46"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+      initial={{ pathLength: 0, opacity: 0 }}
+      animate={{ pathLength: 1, opacity: 1 }}
+      transition={{ duration: 1.2, delay: 0.8, ease: "easeInOut" }}
+    />
+
+    {/* Right fallopian tube */}
+    <motion.path
+      d="M74 36 C80 34, 88 30, 94 32 C100 34, 104 38, 102 44 C100 48, 96 48, 94 46"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+      initial={{ pathLength: 0, opacity: 0 }}
+      animate={{ pathLength: 1, opacity: 1 }}
+      transition={{ duration: 1.2, delay: 0.8, ease: "easeInOut" }}
+    />
+
+    {/* Left ovary – outer shape */}
+    <motion.ellipse
+      cx="22" cy="46" rx="12" ry="14"
+      stroke="currentColor"
+      strokeWidth="1.5"
       fill="currentColor"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 1.5 }}
+      fillOpacity="0.06"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 1.5, duration: 0.6, ease: "backOut" }}
     />
-    <motion.circle
-      cx="85" cy="30" r="3"
+    {/* Left ovary glow */}
+    <motion.ellipse
+      cx="22" cy="46" rx="16" ry="18"
+      fill="url(#ovary-glow-l)"
+      initial={{ scale: 0 }}
+      animate={{ scale: [1, 1.15, 1] }}
+      transition={{ delay: 2, duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    />
+
+    {/* Right ovary – outer shape */}
+    <motion.ellipse
+      cx="98" cy="46" rx="12" ry="14"
+      stroke="currentColor"
+      strokeWidth="1.5"
       fill="currentColor"
-      initial={{ scale: 0 }}
-      animate={{ scale: 1 }}
-      transition={{ delay: 1.5 }}
+      fillOpacity="0.06"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 1.5, duration: 0.6, ease: "backOut" }}
     />
+    {/* Right ovary glow */}
+    <motion.ellipse
+      cx="98" cy="46" rx="16" ry="18"
+      fill="url(#ovary-glow-r)"
+      initial={{ scale: 0 }}
+      animate={{ scale: [1, 1.15, 1] }}
+      transition={{ delay: 2.3, duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    />
+
+    {/* Left follicles */}
+    {[
+      { cx: 17, cy: 40, r: 2, delay: 2.0 },
+      { cx: 26, cy: 42, r: 1.5, delay: 2.2 },
+      { cx: 20, cy: 50, r: 2.5, delay: 2.4 },
+      { cx: 28, cy: 50, r: 1.8, delay: 2.1 },
+      { cx: 16, cy: 48, r: 1.2, delay: 2.6 },
+    ].map((f, i) => (
+      <motion.circle
+        key={`lf-${i}`}
+        cx={f.cx} cy={f.cy} r={f.r}
+        fill="currentColor"
+        fillOpacity="0.35"
+        initial={{ scale: 0 }}
+        animate={{ scale: [0, 1, 0.7, 1] }}
+        transition={{ delay: f.delay, duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+      />
+    ))}
+
+    {/* Right follicles */}
+    {[
+      { cx: 93, cy: 40, r: 2, delay: 2.1 },
+      { cx: 102, cy: 44, r: 1.5, delay: 2.3 },
+      { cx: 96, cy: 52, r: 2.5, delay: 2.5 },
+      { cx: 104, cy: 48, r: 1.8, delay: 2.0 },
+      { cx: 92, cy: 50, r: 1.2, delay: 2.7 },
+    ].map((f, i) => (
+      <motion.circle
+        key={`rf-${i}`}
+        cx={f.cx} cy={f.cy} r={f.r}
+        fill="currentColor"
+        fillOpacity="0.35"
+        initial={{ scale: 0 }}
+        animate={{ scale: [0, 1, 0.7, 1] }}
+        transition={{ delay: f.delay, duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+      />
+    ))}
   </svg>
 );
 
+/* ──────────────────────────────────────────────────────────
+   ANIMATED OVARY BACKGROUND – Large, ghostly ovary shapes
+   float in the background with parallax, orbital follicles,
+   and flowing fallopian-tube curves.
+   ────────────────────────────────────────────────────────── */
+
+// A large, ghostly ovary silhouette for the background
+const GhostOvary = ({ side, delay }: { side: "left" | "right"; delay: number }) => {
+  const isLeft = side === "left";
+  return (
+    <motion.div
+      className={`absolute ${isLeft ? "left-[-8%] top-[15%]" : "right-[-8%] top-[10%]"}`}
+      initial={{ opacity: 0, scale: 0.7 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 2, delay, ease: "easeOut" }}
+    >
+      <svg
+        width="380" height="420"
+        viewBox="0 0 380 420"
+        fill="none"
+        className={`opacity-[0.07] ${isLeft ? "" : "scale-x-[-1]"}`}
+      >
+        {/* Ovary body */}
+        <motion.ellipse
+          cx="190" cy="210" rx="140" ry="170"
+          stroke="#ec4899"
+          strokeWidth="1.5"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 4, delay: delay + 0.5, ease: "easeInOut" }}
+        />
+        {/* Inner follicle ring */}
+        <motion.ellipse
+          cx="190" cy="210" rx="90" ry="110"
+          stroke="#a855f7"
+          strokeWidth="0.8"
+          strokeDasharray="6 8"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, delay: delay + 1.5, ease: "easeInOut" }}
+        />
+        {/* Follicle circles */}
+        {[
+          { cx: 140, cy: 140, r: 22 },
+          { cx: 240, cy: 130, r: 18 },
+          { cx: 120, cy: 240, r: 25 },
+          { cx: 260, cy: 220, r: 20 },
+          { cx: 170, cy: 310, r: 16 },
+          { cx: 220, cy: 290, r: 24 },
+          { cx: 150, cy: 180, r: 14 },
+          { cx: 230, cy: 180, r: 12 },
+        ].map((f, i) => (
+          <motion.circle
+            key={i}
+            cx={f.cx} cy={f.cy} r={f.r}
+            stroke="#ec4899"
+            strokeWidth="0.6"
+            fill="#ec4899"
+            fillOpacity="0.03"
+            initial={{ scale: 0 }}
+            animate={{ scale: [0, 1, 0.85, 1] }}
+            transition={{
+              delay: delay + 2 + i * 0.3,
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+        {/* Fallopian tube extending from the top */}
+        <motion.path
+          d="M190 40 C200 20, 260 10, 300 30 C340 50, 360 100, 340 140"
+          stroke="#a855f7"
+          strokeWidth="1.2"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 2.5, delay: delay + 1, ease: "easeInOut" }}
+        />
+      </svg>
+    </motion.div>
+  );
+};
+
 export default function AnimatedOvaryBackground() {
   const [mounted, setMounted] = useState(false);
-  const [particles, setParticles] = useState<{ x: string, y: string, duration: number, delay: number }[]>([]);
+  const [particles, setParticles] = useState<{ x: number; y: number; size: number; duration: number; delay: number; color: string }[]>([]);
   const { scrollY } = useScroll();
-  const yRange = useTransform(scrollY, [0, 500], [0, -100]);
-  const yRangeOpposite = useTransform(scrollY, [0, 500], [0, 100]);
+  const yRange = useTransform(scrollY, [0, 500], [0, -80]);
+  const yRangeOpposite = useTransform(scrollY, [0, 500], [0, 60]);
+  const rotateLeft = useTransform(scrollY, [0, 1000], [0, -15]);
+  const rotateRight = useTransform(scrollY, [0, 1000], [0, 15]);
 
   useEffect(() => {
     setMounted(true);
-    // Generate particles on mount to avoid hydration mismatch
-    const newParticles = [...Array(15)].map(() => ({
-      x: Math.random() * 100 + "%",
-      y: Math.random() * 100 + "%",
-      duration: Math.random() * 5 + 5,
-      delay: Math.random() * 5
+    const colors = ["#ec4899", "#a855f7", "#6366f1", "#f472b6", "#c084fc"];
+    const newParticles = [...Array(25)].map(() => ({
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 8 + 6,
+      delay: Math.random() * 6,
+      color: colors[Math.floor(Math.random() * colors.length)],
     }));
     setParticles(newParticles);
   }, []);
@@ -76,74 +258,135 @@ export default function AnimatedOvaryBackground() {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 bg-slate-950">
-      {/* Dynamic Grid */}
-      <div className="absolute inset-0 opacity-10" 
-           style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #334155 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-      
-      {/* Glowing Orbs */}
-      <motion.div 
-        style={{ y: yRange }}
-        className="absolute top-[20%] left-[10%] w-[30vw] h-[30vw] bg-pink-600/10 rounded-full blur-[100px]" 
-      />
-      <motion.div 
-        style={{ y: yRangeOpposite }}
-        className="absolute bottom-[20%] right-[10%] w-[40vw] h-[40vw] bg-purple-600/10 rounded-full blur-[120px]" 
+      {/* Subtle dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, #475569 0.5px, transparent 0)",
+          backgroundSize: "32px 32px",
+        }}
       />
 
-      {/* Animated Connection Lines (SVG) */}
-      <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-        <motion.path
-          d="M 100 500 Q 300 400 500 500"
-          stroke="url(#grad-pink)"
-          strokeWidth="1"
-          fill="none"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-        />
-        <motion.path
-          d="M 900 500 Q 700 600 500 500"
-          stroke="url(#grad-purple)"
-          strokeWidth="1"
-          fill="none"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", delay: 1 }}
-        />
+      {/* Large ghostly ovary shapes – left and right */}
+      <motion.div style={{ y: yRange, rotate: rotateLeft }}>
+        <GhostOvary side="left" delay={0.3} />
+      </motion.div>
+      <motion.div style={{ y: yRangeOpposite, rotate: rotateRight }}>
+        <GhostOvary side="right" delay={0.8} />
+      </motion.div>
+
+      {/* Ambient glow orbs */}
+      <motion.div
+        style={{ y: yRange }}
+        className="absolute top-[15%] left-[5%] w-[35vw] h-[35vw] bg-pink-600/8 rounded-full blur-[120px]"
+        animate={{ opacity: [0.04, 0.1, 0.04] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        style={{ y: yRangeOpposite }}
+        className="absolute bottom-[15%] right-[5%] w-[40vw] h-[40vw] bg-purple-600/8 rounded-full blur-[140px]"
+        animate={{ opacity: [0.03, 0.08, 0.03] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      />
+      <motion.div
+        className="absolute top-[45%] left-[40%] w-[20vw] h-[20vw] bg-indigo-500/5 rounded-full blur-[100px]"
+        animate={{ opacity: [0.02, 0.06, 0.02], scale: [1, 1.1, 1] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+      />
+
+      {/* Flowing fallopian-tube connection lines (SVG) */}
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
         <defs>
-          <linearGradient id="grad-pink" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id="tube-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#ec4899" stopOpacity="0" />
-            <stop offset="50%" stopColor="#ec4899" stopOpacity="1" />
+            <stop offset="30%" stopColor="#ec4899" stopOpacity="0.25" />
+            <stop offset="50%" stopColor="#a855f7" stopOpacity="0.3" />
+            <stop offset="70%" stopColor="#6366f1" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="tube-grad-2" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#a855f7" stopOpacity="0" />
+            <stop offset="30%" stopColor="#a855f7" stopOpacity="0.2" />
+            <stop offset="50%" stopColor="#ec4899" stopOpacity="0.25" />
+            <stop offset="70%" stopColor="#f472b6" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#f472b6" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="tube-grad-3" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#6366f1" stopOpacity="0" />
+            <stop offset="50%" stopColor="#a855f7" stopOpacity="0.15" />
             <stop offset="100%" stopColor="#ec4899" stopOpacity="0" />
           </linearGradient>
-          <linearGradient id="grad-purple" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0" />
-            <stop offset="50%" stopColor="#8b5cf6" stopOpacity="1" />
-            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
-          </linearGradient>
         </defs>
+
+        {/* Curving fallopian-like lines */}
+        <motion.path
+          d="M 0 400 C 200 350, 350 300, 500 380 S 800 500, 1000 400 S 1150 300, 1200 350"
+          stroke="url(#tube-grad-1)"
+          strokeWidth="1.5"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 4, delay: 0.5, ease: "easeInOut" }}
+        />
+        <motion.path
+          d="M 0 500 C 150 450, 300 520, 500 460 S 750 350, 950 450 S 1100 520, 1200 480"
+          stroke="url(#tube-grad-2)"
+          strokeWidth="1"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 4.5, delay: 1, ease: "easeInOut" }}
+        />
+        <motion.path
+          d="M 200 200 C 350 250, 500 180, 650 240 S 900 320, 1050 260"
+          stroke="url(#tube-grad-3)"
+          strokeWidth="0.8"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3.5, delay: 1.5, ease: "easeInOut" }}
+        />
+
+        {/* Orbiting follicle dots along the curves */}
+        <motion.circle
+          r="3" fill="#ec4899" fillOpacity="0.5"
+          initial={{ offsetDistance: "0%" }}
+          animate={{ offsetDistance: "100%" }}
+          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          style={{ offsetPath: "path('M 0 400 C 200 350, 350 300, 500 380 S 800 500, 1000 400 S 1150 300, 1200 350')" } as React.CSSProperties}
+        />
+        <motion.circle
+          r="2.5" fill="#a855f7" fillOpacity="0.4"
+          initial={{ offsetDistance: "0%" }}
+          animate={{ offsetDistance: "100%" }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 3 }}
+          style={{ offsetPath: "path('M 0 500 C 150 450, 300 520, 500 460 S 750 350, 950 450 S 1100 520, 1200 480')" } as React.CSSProperties}
+        />
       </svg>
 
-      {/* Floating Particles */}
-      {particles.map((particle, i) => (
+      {/* Floating follicle particles */}
+      {particles.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-pink-400 rounded-full opacity-40"
-          initial={{ 
-            x: particle.x, 
-            y: particle.y,
-            scale: 0
+          className="absolute rounded-full"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            backgroundColor: p.color,
           }}
-          animate={{ 
-            y: [null, "-20%"],
-            opacity: [0, 0.4, 0],
-            scale: [0, 1, 0.5]
+          animate={{
+            y: [0, -30, 0],
+            x: [0, Math.sin(i) * 15, 0],
+            opacity: [0, 0.5, 0],
+            scale: [0.5, 1.2, 0.5],
           }}
-          transition={{ 
-            duration: particle.duration, 
-            repeat: Infinity, 
-            ease: "linear",
-            delay: particle.delay
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: p.delay,
           }}
         />
       ))}
