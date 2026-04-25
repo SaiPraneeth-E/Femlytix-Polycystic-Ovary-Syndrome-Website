@@ -2,79 +2,86 @@
 
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Activity, Brain, ShieldAlert, Cpu, ChevronDown, CheckCircle, Database, FileText, Github, Linkedin, Mail } from "lucide-react";
+import { ChevronDown, Mail, Linkedin, Github, Activity, ShieldAlert, Brain, FileText, Database, CheckCircle } from "lucide-react";
+import AnimatedOvaryBackground, { OvaryIcon } from "@/components/AnimatedOvaryBackground";
 
 export default function Home() {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 1000], [0, -200]);
-  const y2 = useTransform(scrollY, [0, 1000], [0, 200]);
+  const opacity = useTransform(scrollY, [0, 200], [1, 0]);
+  const scale = useTransform(scrollY, [0, 200], [1, 0.9]);
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-200 overflow-x-hidden selection:bg-cyan-500/30">
+    <main className="min-h-screen bg-slate-950 text-slate-200 overflow-x-hidden selection:bg-pink-500/30">
       
-      {/* GLOBAL NAVIGATION HEADER */}
-      <header className="fixed top-0 left-0 w-full z-50 p-4 transition-all duration-300 backdrop-blur-xl bg-slate-950/60 border-b border-slate-800">
+      {/* GLOBAL NAVIGATION */}
+      <header className="fixed top-0 left-0 w-full z-50 p-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <Cpu className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
-            <span className="font-bold text-lg text-white">Femlytix<span className="text-cyan-400">.AI</span></span>
+            <OvaryIcon className="w-8 h-8 text-pink-500 group-hover:scale-110 transition-transform" />
+            <span className="font-bold text-xl text-white tracking-tight">Femlytix<span className="text-pink-500">.AI</span></span>
           </Link>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <Link href="/" className="text-cyan-400 transition-colors">Home</Link>
-            <Link href="#how-it-works" className="text-slate-300 hover:text-cyan-400 transition-colors">How It Works</Link>
-            <Link href="/intake" className="text-slate-300 hover:text-cyan-400 transition-colors">AI Diagnostics</Link>
-            <Link href="/login" className="text-slate-300 hover:text-cyan-400 transition-colors">Patient Web</Link>
+          
+          <nav className="hidden md:flex items-center gap-10 text-sm font-medium absolute left-1/2 -translate-x-1/2">
+            <Link href="/" className="text-pink-400 hover:text-pink-300 transition-colors">Home</Link>
+            <Link href="#how-it-works" className="text-slate-400 hover:text-white transition-colors">How It Works</Link>
+            <Link href="/intake" className="text-slate-400 hover:text-white transition-colors">AI Diagnostics</Link>
+            <Link href="/login" className="text-slate-400 hover:text-white transition-colors">Patient Web</Link>
           </nav>
-          <div className="hidden md:block">
-            <Link href="/admin">
-              <button className="px-5 py-2 text-xs font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 rounded-full hover:bg-cyan-500/20 transition-colors duration-300">
-                Staff Portal
-              </button>
-            </Link>
-          </div>
+
+          <Link href="/admin">
+            <button className="px-6 py-2 text-xs font-bold text-pink-400 border border-pink-500/30 rounded-full hover:bg-pink-500/10 transition-all duration-300 backdrop-blur-sm">
+              Staff Portal
+            </button>
+          </Link>
         </div>
       </header>
 
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center p-6 pt-20">
-        {/* Background Decor */}
-        <motion.div style={{ y: y1 }} className="absolute top-[10%] left-[-10%] w-[40%] h-[40%] bg-blue-600 rounded-full blur-[150px] opacity-20 pointer-events-none" />
-        <motion.div style={{ y: y2 }} className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-cyan-500 rounded-full blur-[150px] opacity-20 pointer-events-none" />
-
-        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-[0.03] pointer-events-none" />
+      <section className="relative min-h-screen flex flex-col items-center justify-center p-6 text-center pt-20">
+        <AnimatedOvaryBackground />
 
         <motion.div
+          style={{ opacity, scale }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full max-w-5xl mx-auto text-center z-10"
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="z-10 max-w-4xl"
         >
-          <div className="flex justify-center mb-8">
-            <div className="bg-slate-900 border border-cyan-500/30 p-5 rounded-full shadow-[0_0_30px_rgba(6,182,212,0.15)] relative group">
-              <div className="absolute inset-0 bg-cyan-400 rounded-full blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
-              <Cpu className="w-14 h-14 text-cyan-400 relative z-10" />
+          {/* Central Glowing Icon */}
+          <div className="relative mb-12 inline-block">
+            <div className="absolute inset-0 bg-pink-500 rounded-full blur-[40px] opacity-20 animate-pulse" />
+            <div className="relative bg-slate-900/50 border border-pink-500/20 p-6 rounded-full backdrop-blur-xl shadow-[0_0_50px_rgba(236,72,153,0.15)]">
+              <OvaryIcon className="w-16 h-16 text-pink-500" />
             </div>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-8">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 drop-shadow-sm">
+          <h1 className="text-7xl md:text-9xl font-black tracking-tighter mb-8 leading-none">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 drop-shadow-2xl">
               Femlytix
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-            The advanced multimodal diagnostic pipeline for early PCOS detection, metabolic risk analysis, and AI-driven personalized lifestyle recommendations.
+          <p className="text-xl md:text-2xl text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+            Pioneering women&apos;s health with multimodal diagnostics for Polycystic Ovary Syndrome. 
+            Early detection, AI risk analysis, and personalized metabolic tracking.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-24">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link href="/intake">
-              <button className="w-full sm:w-auto px-10 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] transition-all hover:-translate-y-1">
-                Start AI Assessment
+              <button className="px-10 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(236,72,153,0.3)] hover:shadow-[0_0_40px_rgba(236,72,153,0.5)] transition-all hover:-translate-y-1">
+                Start Risk Assessment
               </button>
             </Link>
+            
             <Link href="/login">
-              <button className="w-full sm:w-auto px-10 py-4 bg-slate-900/80 backdrop-blur-md border border-slate-700 hover:border-cyan-500/50 text-slate-200 rounded-xl font-bold text-lg transition-all hover:bg-slate-800 hover:-translate-y-1">
-                Patient & Admin Login
+              <button className="px-10 py-4 bg-slate-900/60 backdrop-blur-xl border border-slate-800 hover:border-pink-500/50 text-slate-200 rounded-2xl font-bold text-lg transition-all hover:bg-slate-800/80 hover:-translate-y-1">
+                Patient Login
+              </button>
+            </Link>
+
+            <Link href="/login">
+              <button className="px-10 py-4 bg-slate-900/40 backdrop-blur-md border border-purple-900/30 hover:border-purple-500/50 text-slate-400 hover:text-white rounded-2xl font-bold text-lg transition-all hover:-translate-y-1 shadow-[0_0_20px_rgba(139,92,246,0.1)]">
+                Admin Login
               </button>
             </Link>
           </div>
@@ -84,56 +91,19 @@ export default function Home() {
         <motion.div 
           animate={{ y: [0, 10, 0] }} 
           transition={{ repeat: Infinity, duration: 2 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-slate-500 flex flex-col items-center gap-2"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         >
-          <span className="text-xs uppercase tracking-widest font-semibold flex flex-col items-center gap-2">Discover Health</span>
-          <ChevronDown className="w-5 h-5 text-cyan-500" />
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-pink-500/60">Discover Health</span>
+          <ChevronDown className="w-5 h-5 text-pink-500" />
         </motion.div>
       </section>
 
-      {/* EDUCATIONAL SECTION: What is PCOS */}
-      <section className="py-24 relative border-t border-slate-800 bg-slate-900/30">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-3">Understanding the Condition</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">What is PCOS?</h3>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-              Polycystic Ovary Syndrome (PCOS) is a hormonal disorder common among women of reproductive age. It can cause irregular menstrual cycles, excess androgen levels, and polycystic ovaries—which can impact fertility and metabolic health.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={<Activity className="text-red-400 w-8 h-8" />}
-              title="Hormonal Imbalance"
-              desc="Elevated androgens (male hormones) can prevent the ovaries from releasing eggs properly and cause bodily changes like excess hair growth or severe acne."
-              borderColor="border-red-500/20"
-              bgColor="bg-red-500/5"
-            />
-            <FeatureCard
-              icon={<ShieldAlert className="text-amber-400 w-8 h-8" />}
-              title="Metabolic Complications"
-              desc="If left unmanaged, PCOS significantly increases the risk of metabolic syndrome, type 2 diabetes, high blood pressure, and cardiovascular issues."
-              borderColor="border-amber-500/20"
-              bgColor="bg-amber-500/5"
-            />
-            <FeatureCard
-              icon={<Brain className="text-emerald-400 w-8 h-8" />}
-              title="Why Early Detection Matters"
-              desc="Diagnosing PCOS early allows for lifestyle interventions, automated dietary adjustments, and medication that severely reduces long-term metabolic risks."
-              borderColor="border-emerald-500/20"
-              bgColor="bg-emerald-500/5"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* HOW IT WORKS SECTION */}
-      <section id="how-it-works" className="py-32 relative">
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+      {/* ADDITIONAL SECTIONS (Keeping them but updating theme to match) */}
+      <section id="how-it-works" className="py-32 relative bg-slate-950">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-20">
-            <h2 className="text-sm font-bold text-cyan-400 tracking-widest uppercase mb-3">Diagnostic Pipeline</h2>
-            <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">How Femlytix Works</h3>
+            <h2 className="text-sm font-bold text-pink-500 tracking-widest uppercase mb-3">Diagnostic Pipeline</h2>
+            <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">How Femlytix Works</h3>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
               Our platform orchestrates a powerful multi-stage Machine Learning approach combining tabular clinical records with computer-vision ultrasound scans.
             </p>
@@ -142,51 +112,45 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <StepCard number="01" icon={<FileText />} title="Intake Form" desc="Submit age, BMI, and hormonal assays (FSH/LH levels) via our secure patient portal." />
             <StepCard number="02" icon={<Database />} title="Image Upload" desc="Attach sonographic ultrasound imaging of the ovaries for neural network routing." />
-            <StepCard number="03" icon={<Cpu />} title="AI Analysis" desc="Our PyTorch Ensemble Models cross-verify tabular risk data against vision-based follicle patterns." />
+            <StepCard number="03" icon={<CpuIcon />} title="AI Analysis" desc="Our PyTorch Ensemble Models cross-verify tabular risk data against vision-based follicle patterns." />
             <StepCard number="04" icon={<CheckCircle />} title="Prescription" desc="The LLM Orchestrator generates a fully synthesized PDF risk report and lifestyle modification plan." />
           </div>
         </div>
       </section>
 
-      {/* FOOTER & AUTHOR INFO */}
-      <footer className="bg-slate-950 border-t border-slate-800 pt-16 pb-8 relative overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
-        
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
-          
+      {/* FOOTER */}
+      <footer className="bg-slate-950 border-t border-slate-900 pt-20 pb-10 relative">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="text-center md:text-left">
-            <h4 className="text-2xl font-bold text-white mb-2">Femlytix<span className="text-cyan-500">.AI</span></h4>
-            <p className="text-slate-500 text-sm max-w-md">
+            <h4 className="text-3xl font-bold text-white mb-4">Femlytix<span className="text-pink-500">.AI</span></h4>
+            <p className="text-slate-500 text-sm max-w-md leading-relaxed">
               Democratizing advanced healthcare diagnostics by pairing high-performance Machine Learning infrastructure with intuitive clinical dashboards.
             </p>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl border border-slate-800 bg-slate-900/50 backdrop-blur-md">
-            <h5 className="text-sm uppercase tracking-widest font-bold text-slate-400 mb-4 text-center md:text-left">Created By</h5>
-            <div className="flex flex-col gap-2">
-              <h6 className="text-lg font-bold text-cyan-400">Edupulapati Sai Praneeth</h6>
-              
-              <div className="flex flex-col gap-2 mt-2">
-                <a href="mailto:saipraneeth080805@gmail.com" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors group">
-                  <Mail className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition-colors" /> saipraneeth080805@gmail.com
+          <div className="bg-slate-900/50 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 max-w-md w-full">
+            <h5 className="text-xs uppercase tracking-widest font-bold text-pink-500/60 mb-6">Project Architect</h5>
+            <div className="flex flex-col gap-4">
+              <h6 className="text-xl font-bold text-white">Edupulapati Sai Praneeth</h6>
+              <div className="flex flex-col gap-3">
+                <a href="mailto:saipraneeth080805@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                  <Mail className="w-4 h-4" /> saipraneeth080805@gmail.com
                 </a>
-                <a href="https://www.linkedin.com/in/edupulapatisaipraneeth/" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors group">
-                  <Linkedin className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition-colors" /> LinkedIn Profile
+                <a href="https://www.linkedin.com/in/edupulapatisaipraneeth/" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                  <Linkedin className="w-4 h-4" /> LinkedIn Profile
                 </a>
-                <a href="https://github.com/SaiPraneeth-E" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-sm text-slate-300 hover:text-white transition-colors group">
-                  <Github className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 transition-colors" /> GitHub: SaiPraneeth-E
+                <a href="https://github.com/SaiPraneeth-E" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                  <Github className="w-4 h-4" /> GitHub: SaiPraneeth-E
                 </a>
               </div>
             </div>
           </div>
-
         </div>
-
-        <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-800/50 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-600">
-          <p>© {new Date().getFullYear()} Femlytix Platform. All rights reserved.</p>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-slate-400">Privacy Policy</a>
-            <a href="#" className="hover:text-slate-400">Terms of Service</a>
+        <div className="max-w-7xl mx-auto px-6 mt-20 pt-8 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-widest text-slate-600 font-bold">
+          <p>© {new Date().getFullYear()} Femlytix Platform</p>
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-pink-500 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-pink-500 transition-colors">Terms</a>
           </div>
         </div>
       </footer>
@@ -194,31 +158,23 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, desc, borderColor = "border-slate-700", bgColor = "bg-slate-800/50" }: { icon: React.ReactNode, title: string, desc: string, borderColor?: string, bgColor?: string }) {
-  return (
-    <div className={`glass-panel p-8 rounded-2xl border ${borderColor} hover:border-cyan-500/50 transition-all duration-300 group hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10`}>
-      <div className={`mb-6 ${bgColor} w-16 h-16 rounded-xl flex items-center justify-center border border-white/5 group-hover:scale-110 transition-transform`}>
-        {icon}
-      </div>
-      <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-      <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
-    </div>
-  );
-}
-
 function StepCard({ number, icon, title, desc }: { number: string, icon: React.ReactNode, title: string, desc: string }) {
   return (
-    <div className="relative p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/30 transition-all group overflow-hidden">
-      <div className="absolute top-[-20%] right-[-10%] text-8xl font-black text-slate-800/30 group-hover:text-cyan-900/20 transition-colors pointer-events-none select-none">
+    <div className="relative p-8 rounded-3xl bg-slate-900/40 border border-slate-800 hover:border-pink-500/20 transition-all group overflow-hidden">
+      <div className="absolute -top-4 -right-4 text-8xl font-black text-white/5 group-hover:text-pink-500/10 transition-colors pointer-events-none">
         {number}
       </div>
       <div className="relative z-10">
-        <div className="w-12 h-12 bg-slate-800 text-cyan-400 rounded-lg flex items-center justify-center mb-6 border border-slate-700 group-hover:bg-cyan-500/10 transition-colors">
+        <div className="w-14 h-14 bg-slate-800 text-pink-500 rounded-2xl flex items-center justify-center mb-8 border border-slate-700 group-hover:scale-110 transition-transform">
           {icon}
         </div>
-        <h4 className="text-lg font-bold text-white mb-2">{title}</h4>
+        <h4 className="text-xl font-bold text-white mb-3 tracking-tight">{title}</h4>
         <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
       </div>
     </div>
   );
 }
+
+const CpuIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>
+);
