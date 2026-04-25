@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { UploadCloud, Activity, ArrowRight, Loader2, ArrowLeft } from "lucide-react";
+import AnimatedOvaryBackground from "@/components/AnimatedOvaryBackground";
 
 export default function IntakeForm() {
     const router = useRouter();
@@ -102,10 +103,11 @@ export default function IntakeForm() {
     };
 
     return (
-        <main className="min-h-screen p-8 md:p-16 flex flex-col items-center">
-            
-            <div className="w-full max-w-4xl flex justify-start mb-6">
-                <Link href="/" className="flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors bg-slate-900/50 px-4 py-2 rounded-full border border-slate-800 backdrop-blur-sm group">
+        <main className="min-h-screen p-8 md:p-16 flex flex-col items-center relative bg-slate-950">
+            <AnimatedOvaryBackground />
+
+            <div className="w-full max-w-4xl flex justify-start mb-6 z-10">
+                <Link href="/" className="flex items-center gap-2 text-sm text-slate-400 hover:text-pink-400 transition-colors bg-slate-900/50 px-4 py-2 rounded-full border border-slate-800 backdrop-blur-sm group">
                     <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Home
                 </Link>
             </div>
@@ -113,11 +115,11 @@ export default function IntakeForm() {
             <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full max-w-4xl glass-panel p-8"
+                className="w-full max-w-4xl glass-panel p-8 z-10"
             >
                 <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
-                    <Activity className="text-cyan-400 w-8 h-8" />
-                    <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">
+                    <Activity className="text-pink-500 w-8 h-8" />
+                    <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">
                         Medical Intake & Assessment
                     </h2>
                 </div>
@@ -150,9 +152,9 @@ export default function IntakeForm() {
                         <div className="flex items-center justify-center w-full">
                             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-slate-600 border-dashed rounded-lg cursor-pointer bg-slate-800/50 hover:bg-slate-800/80 transition-colors">
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <UploadCloud className="w-8 h-8 text-cyan-400 mb-2" />
+                                    <UploadCloud className="w-8 h-8 text-pink-500 mb-2" />
                                     <p className="mb-2 text-sm text-slate-400">
-                                        <span className="font-semibold text-cyan-400">Click to upload</span> or drag and drop
+                                        <span className="font-semibold text-pink-400">Click to upload</span> or drag and drop
                                     </p>
                                     <p className="text-xs text-slate-500">PNG, JPG, or DICOM (Max 5MB)</p>
                                 </div>
@@ -165,7 +167,7 @@ export default function IntakeForm() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-700 text-white rounded-lg font-bold text-lg shadow-[0_0_15px_rgba(14,165,233,0.3)] hover:shadow-[0_0_25px_rgba(14,165,233,0.5)] transition-all disabled:opacity-50"
+                        className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-lg font-bold text-lg shadow-[0_0_15px_rgba(236,72,153,0.3)] hover:shadow-[0_0_25px_rgba(236,72,153,0.5)] transition-all disabled:opacity-50"
                     >
                         {loading ? <Loader2 className="w-6 h-6 animate-spin" /> : "Run AI Pipeline"}
                         {!loading && <ArrowRight className="w-5 h-5" />}
@@ -185,7 +187,7 @@ function FormInput({ label, name, type, value, onChange }: any) {
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
             />
         </div>
     );
@@ -199,7 +201,7 @@ function FormSelect({ label, name, value, onChange, options }: any) {
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500 transition-colors"
             >
                 {options.map((opt: any) => (
                     <option key={opt.v} value={opt.v}>{opt.l}</option>

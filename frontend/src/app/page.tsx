@@ -134,8 +134,8 @@ export default function Home() {
               <div className="flex flex-col gap-4">
                 <h6 className="text-xl font-bold text-white">Edupulapati Sai Praneeth</h6>
                 <div className="flex flex-col gap-3">
-                  <a href="mailto:saipraneeth080805@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
-                    <Mail className="w-4 h-4" /> saipraneeth080805@gmail.com
+                  <a href="mailto:edupulapatisaipraneeth12345@gmail.com" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                    <Mail className="w-4 h-4" /> edupulapatisaipraneeth12345@gmail.com
                   </a>
                   <a href="https://www.linkedin.com/in/edupulapatisaipraneeth/" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
                     <Linkedin className="w-4 h-4" /> LinkedIn Profile

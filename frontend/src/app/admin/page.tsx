@@ -19,6 +19,7 @@ import {
   X,
   Stethoscope
 } from "lucide-react";
+import AnimatedOvaryBackground from "@/components/AnimatedOvaryBackground";
 
 
 
@@ -97,25 +98,25 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200">
+    <div className="min-h-screen bg-slate-950 text-slate-200 relative">
       {/* Background Effect */}
-      <div className="fixed top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <AnimatedOvaryBackground />
 
       {/* Header */}
       <header className="sticky top-0 z-40 backdrop-blur-xl border-b border-white/5 bg-slate-950/50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-emerald-500/10 p-2 rounded-lg border border-emerald-500/20">
-              <Shield className="w-5 h-5 text-emerald-400" />
+            <div className="bg-pink-500/10 p-2 rounded-lg border border-pink-500/20">
+              <Shield className="w-5 h-5 text-pink-400" />
             </div>
-            <h1 className="font-bold text-xl tracking-tight text-white">Administrator<span className="text-emerald-500">.AI</span></h1>
+            <h1 className="font-bold text-xl tracking-tight text-white">Administrator<span className="text-pink-500">.AI</span></h1>
           </div>
           
           <div className="flex items-center gap-8">
             <nav className="hidden md:flex gap-6 text-sm font-medium">
-              <button type="button" onClick={() => setActiveTab("overview")} className={`transition-colors ${activeTab === 'overview' ? 'text-emerald-400 border-b-2 border-emerald-400 pb-5 translate-y-[10px]' : 'text-slate-400 hover:text-white'}`}>Overview</button>
-              <button type="button" onClick={() => setActiveTab("patients")} className={`transition-colors ${activeTab === 'patients' ? 'text-emerald-400 border-b-2 border-emerald-400 pb-5 translate-y-[10px]' : 'text-slate-400 hover:text-white'}`}>Patient Records</button>
-              <button type="button" onClick={() => setActiveTab("users")} className={`transition-colors ${activeTab === 'users' ? 'text-emerald-400 border-b-2 border-emerald-400 pb-5 translate-y-[10px]' : 'text-slate-400 hover:text-white'}`}>User Management</button>
+              <button type="button" onClick={() => setActiveTab("overview")} className={`transition-colors ${activeTab === 'overview' ? 'text-pink-400 border-b-2 border-pink-400 pb-5 translate-y-[10px]' : 'text-slate-400 hover:text-white'}`}>Overview</button>
+              <button type="button" onClick={() => setActiveTab("patients")} className={`transition-colors ${activeTab === 'patients' ? 'text-pink-400 border-b-2 border-pink-400 pb-5 translate-y-[10px]' : 'text-slate-400 hover:text-white'}`}>Patient Records</button>
+              <button type="button" onClick={() => setActiveTab("users")} className={`transition-colors ${activeTab === 'users' ? 'text-pink-400 border-b-2 border-pink-400 pb-5 translate-y-[10px]' : 'text-slate-400 hover:text-white'}`}>User Management</button>
             </nav>
 
             <button 
@@ -129,7 +130,7 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8 relative">
+      <main className="max-w-7xl mx-auto px-6 py-8 relative z-10">
         
         {/* OVERVIEW TAB */}
         {activeTab === "overview" && (
@@ -155,7 +156,7 @@ export default function AdminDashboard() {
               <div className="lg:col-span-2 space-y-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-white flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-emerald-400" />
+                    <Clock className="w-5 h-5 text-pink-400" />
                     Live Diagnostic Queue
                   </h2>
                 </div>
@@ -252,7 +253,7 @@ export default function AdminDashboard() {
         {activeTab === "patients" && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 space-y-6">
              <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-                <FileText className="w-6 h-6 text-emerald-400" />
+                <FileText className="w-6 h-6 text-pink-400" />
                 Comprehensive Patient Records
              </h2>
              
@@ -267,7 +268,7 @@ export default function AdminDashboard() {
                    <div 
                     onClick={() => setSelectedPatient(pt)}
                     key={i} 
-                    className={`p-4 border-b border-light cursor-pointer hover:bg-white/[0.04] transition-colors ${selectedPatient?.id === pt.id ? 'bg-emerald-900/20 border-l-2 border-l-emerald-500' : 'border-l-2 border-l-transparent'}`}
+                    className={`p-4 border-b border-light cursor-pointer hover:bg-white/[0.04] transition-colors ${selectedPatient?.id === pt.id ? 'bg-pink-900/20 border-l-2 border-l-pink-500' : 'border-l-2 border-l-transparent'}`}
                    >
                      <div className="flex justify-between items-center mb-1">
                        <span className="font-semibold text-white">{pt.name}</span>
@@ -354,7 +355,7 @@ export default function AdminDashboard() {
                   <Shield className="w-6 h-6 text-purple-400" />
                   System Authorization Roles
                </h2>
-               <button type="button" className="bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium px-6 py-2 rounded-full transition-colors shadow-lg">
+               <button type="button" className="bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium px-6 py-2 rounded-full transition-colors shadow-lg">
                  + Invite Staff
                </button>
              </div>
