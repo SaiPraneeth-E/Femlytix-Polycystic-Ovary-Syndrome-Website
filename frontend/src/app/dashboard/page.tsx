@@ -29,7 +29,7 @@ export default function Dashboard() {
         if (!results || !patient) return;
         setLoadingPdf(true);
         try {
-            const apiBase = typeof window !== 'undefined' ? `http://${window.location.hostname}:8000` : 'http://127.0.0.1:8000';
+            const apiBase = typeof window !== 'undefined' ? (process.env.NEXT_PUBLIC_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://femlytix-polycystic-ovary-syndrome.onrender.com')) : (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000');
             const res = await fetch(`${apiBase}/api/reports/generate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

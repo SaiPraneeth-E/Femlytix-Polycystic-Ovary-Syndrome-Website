@@ -14,8 +14,8 @@ export default function Home() {
   useEffect(() => {
     // Wake up backend and ML service (e.g. Render / Hugging Face free tiers) on page load
     const apiBase = typeof window !== 'undefined' 
-        ? process.env.NEXT_PUBLIC_API_URL || `http://${window.location.hostname}:8000` 
-        : 'http://127.0.0.1:8000';
+        ? process.env.NEXT_PUBLIC_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://femlytix-polycystic-ovary-syndrome.onrender.com') 
+        : process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
     
     fetch(`${apiBase}/health`).catch((e) => console.log("Wakeup ping error:", e));
   }, []);

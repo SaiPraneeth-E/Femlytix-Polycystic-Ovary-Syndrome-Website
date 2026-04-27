@@ -74,7 +74,7 @@ export default function IntakeForm() {
             fd.append("patient_data", JSON.stringify(formData));
             fd.append("ultrasound_image", file);
 
-            const apiBase = typeof window !== 'undefined' ? `http://${window.location.hostname}:8000` : 'http://127.0.0.1:8000';
+            const apiBase = typeof window !== 'undefined' ? (process.env.NEXT_PUBLIC_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://femlytix-polycystic-ovary-syndrome.onrender.com')) : (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000');
             const res = await fetch(`${apiBase}/api/predict/full-pipeline`, {
                 method: "POST",
                 body: fd
