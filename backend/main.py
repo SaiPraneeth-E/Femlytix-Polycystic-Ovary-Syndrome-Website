@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from routers import predict, reports
@@ -38,6 +38,15 @@ app.add_middleware(
 app.include_router(predict.router)
 app.include_router(reports.router)
 
+def ping_ml_service():
+    from services.ml_pipeline import ML_SERVICE_URL
+    import requests
+    try:
+        requests.get(f"{ML_SERVICE_URL.rstrip('/')}/health", timeout=3.0)
+    except Exception as e:
+        print(f"[WAKEUP] ML Service wakeup ping failed/timeout: {e}")
+
 @app.get("/health")
-def root():
+def root(background_tasks: BackgroundTasks):
+    background_tasks.add_task(ping_ml_service)
     return {"status": "healthy", "service": "PCOS AI Backend v2.0"}
