@@ -274,13 +274,6 @@ export default function AnimatedOvaryBackground() {
         <motion.div
           key={i}
           className="absolute rounded-full"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
-            backgroundColor: p.color,
-          }}
           animate={{
             y: [0, -40, 0],
             opacity: [0, 0.4, 0],
@@ -290,7 +283,7 @@ export default function AnimatedOvaryBackground() {
             repeat: Infinity,
             delay: p.delay,
           }}
-          style={{ willChange: "transform, opacity", ...({ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, backgroundColor: p.color }) }}
+          style={{ willChange: "transform, opacity", left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, backgroundColor: p.color }}
         />
       ))}
     </div>
