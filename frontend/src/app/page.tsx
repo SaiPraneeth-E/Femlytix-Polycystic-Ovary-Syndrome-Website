@@ -310,13 +310,19 @@ export default function Home() {
                   <a href="https://www.linkedin.com/in/edupulapatisaipraneeth/" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
                     <Linkedin className="w-4 h-4" /> LinkedIn Profile
                   </a>
+                  <a href="https://github.com/SaiPraneeth-E" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                    <Github className="w-4 h-4" /> GitHub Profile
+                  </a>
                 </div>
               </div>
               <div className="flex flex-col gap-4">
                 <h6 className="text-xl font-bold text-white">Liel Stephen</h6>
                 <div className="flex flex-col gap-3">
+                  <a href="https://www.linkedin.com/in/liel-stephen-17a06b295/" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
+                    <Linkedin className="w-4 h-4" /> LinkedIn Profile
+                  </a>
                   <a href="https://github.com/LielStephen" target="_blank" rel="noreferrer" className="flex items-center gap-3 text-sm text-slate-400 hover:text-pink-400 transition-colors">
-                    <Github className="w-4 h-4" /> GitHub: LielStephen
+                    <Github className="w-4 h-4" /> GitHub Profile
                   </a>
                 </div>
               </div>
