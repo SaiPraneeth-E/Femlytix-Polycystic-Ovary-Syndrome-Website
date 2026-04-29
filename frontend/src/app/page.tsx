@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Mail, Linkedin, Github, Activity, ShieldAlert, Brain, FileText, Database, CheckCircle } from "lucide-react";
