@@ -28,11 +28,11 @@ const BloodDropInteraction = () => {
           animate={{ opacity: 0, y: 120, scale: 1, height: 25 }}
           transition={{ duration: 1.2, ease: "easeIn" }}
           className="fixed z-50 pointer-events-none"
-          style={{ left: drop.x - 3, top: drop.y - 10 }}
+          style={{ left: drop.x - 3, top: drop.y - 10, willChange: "transform, opacity" }}
           onAnimationComplete={() => setDrops(prev => prev.filter(d => d.id !== drop.id))}
         >
           {/* Blood drop shape */}
-          <div className="w-[6px] h-full bg-gradient-to-b from-red-500/80 to-pink-600/90 shadow-[0_0_8px_rgba(220,38,38,0.6)]" style={{ borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%" }} />
+          <div className="w-[6px] h-full bg-gradient-to-b from-red-500/90 to-pink-600/90" style={{ borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%" }} />
         </motion.div>
       ))}
     </>
@@ -41,16 +41,16 @@ const BloodDropInteraction = () => {
 
 const OvaryEvolutionLoop = () => {
   return (
-    <div className="absolute inset-0 z-[-5] flex items-center justify-center pointer-events-none overflow-hidden opacity-50 mix-blend-screen">
+    <div className="absolute inset-0 z-[-5] flex items-center justify-center pointer-events-none overflow-hidden opacity-50">
       {/* Central Core - Starts closed, expands, closes */}
       <motion.div
         animate={{
           scale: [0.3, 1.5, 0.3],
           rotate: [0, 180, 360],
-          borderRadius: ["40%", "60%", "40%"]
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-[40vw] h-[40vw] min-w-[300px] min-h-[300px] max-w-[800px] max-h-[800px] bg-gradient-to-tr from-pink-600/20 via-purple-600/10 to-transparent blur-[80px]"
+        className="absolute w-[60vw] h-[60vw] min-w-[300px] min-h-[300px] max-w-[800px] max-h-[800px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(219,39,119,0.25)_0%,rgba(147,51,234,0.1)_40%,transparent_70%)]"
+        style={{ willChange: "transform" }}
       />
       
       {/* Outer Membrane - Blossoming effect */}
@@ -61,21 +61,23 @@ const OvaryEvolutionLoop = () => {
           opacity: [0.2, 0.6, 0.2]
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-[50vw] h-[50vw] min-w-[400px] min-h-[400px] max-w-[1000px] max-h-[1000px] bg-gradient-to-bl from-indigo-500/20 to-pink-500/10 blur-[100px] rounded-full border border-pink-500/5"
+        className="absolute w-[70vw] h-[70vw] min-w-[400px] min-h-[400px] max-w-[1000px] max-h-[1000px] rounded-full border border-pink-500/5 bg-[radial-gradient(circle,rgba(99,102,241,0.15)_0%,transparent_70%)]"
+        style={{ willChange: "transform, opacity" }}
       />
 
       {/* Internal Cells / Follicles */}
-      {[...Array(8)].map((_, i) => (
+      {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
           animate={{
-            x: [0, Math.cos(i * 0.785) * (typeof window !== 'undefined' ? window.innerWidth * 0.3 : 300), 0],
-            y: [0, Math.sin(i * 0.785) * (typeof window !== 'undefined' ? window.innerHeight * 0.3 : 200), 0],
-            scale: [0.2, 1.5, 0.2],
-            opacity: [0, 0.5, 0]
+            x: [0, Math.cos(i * 1.047) * 250, 0],
+            y: [0, Math.sin(i * 1.047) * 150, 0],
+            scale: [0.5, 2, 0.5],
+            opacity: [0.1, 0.5, 0.1]
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-          className="absolute w-12 h-12 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-500/20 blur-2xl"
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+          className="absolute w-24 h-24 md:w-40 md:h-40 rounded-full bg-[radial-gradient(circle,rgba(244,114,182,0.3)_0%,transparent_70%)]"
+          style={{ willChange: "transform, opacity" }}
         />
       ))}
     </div>

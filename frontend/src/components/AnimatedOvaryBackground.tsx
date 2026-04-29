@@ -166,7 +166,7 @@ const BiologicalNode = ({ side, delay }: { side: "left" | "right"; delay: number
     >
       <div className="relative">
         {/* Outer Glow Ring */}
-        <div className={`absolute inset-0 rounded-full blur-[40px] opacity-20 ${isLeft ? "bg-pink-500" : "bg-purple-500"}`} />
+        <div className="absolute inset-0 rounded-full" style={{ background: isLeft ? "radial-gradient(circle, rgba(236,72,153,0.2) 0%, transparent 70%)" : "radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%)" }} />
         
         <svg width="180" height="180" viewBox="0 0 100 100" className="opacity-40">
           <circle cx="50" cy="50" r="48" stroke="currentColor" strokeWidth="0.5" fill="none" className="text-slate-700" />
@@ -265,9 +265,9 @@ export default function AnimatedOvaryBackground() {
       <BiologicalNode side="right" delay={0.8} />
 
       {/* Ambient Glows */}
-      <div className="absolute top-[20%] left-[15%] w-[400px] h-[400px] bg-pink-600/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-[20%] right-[15%] w-[450px] h-[450px] bg-purple-600/5 rounded-full blur-[140px]" />
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-pink-500/10 rounded-full blur-[100px]" />
+      <div className="absolute top-[20%] left-[15%] w-[400px] h-[400px] rounded-full bg-[radial-gradient(circle,rgba(219,39,119,0.05)_0%,transparent_70%)]" />
+      <div className="absolute bottom-[20%] right-[15%] w-[450px] h-[450px] rounded-full bg-[radial-gradient(circle,rgba(147,51,234,0.05)_0%,transparent_70%)]" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-[radial-gradient(circle,rgba(236,72,153,0.1)_0%,transparent_70%)]" />
 
       {/* Floating small particles */}
       {particles.map((p, i) => (
@@ -290,6 +290,7 @@ export default function AnimatedOvaryBackground() {
             repeat: Infinity,
             delay: p.delay,
           }}
+          style={{ willChange: "transform, opacity", ...({ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size, backgroundColor: p.color }) }}
         />
       ))}
     </div>
