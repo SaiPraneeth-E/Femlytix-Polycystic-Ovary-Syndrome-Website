@@ -6,6 +6,82 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Mail, Linkedin, Github, Activity, ShieldAlert, Brain, FileText, Database, CheckCircle } from "lucide-react";
 import AnimatedOvaryBackground, { OvaryIcon } from "@/components/AnimatedOvaryBackground";
 
+const BloodDropInteraction = () => {
+  const [drops, setDrops] = useState<{ id: number; x: number; y: number }[]>([]);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      // Don't trigger if clicking on an interactive element (like a button/link) if we want to be safe,
+      // but the prompt says "On any user interaction (click/tap anywhere on the page)".
+      setDrops(prev => [...prev, { id: Date.now(), x: e.clientX, y: e.clientY }]);
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  return (
+    <>
+      {drops.map(drop => (
+        <motion.div
+          key={drop.id}
+          initial={{ opacity: 1, y: 0, scale: 0.5, height: 10 }}
+          animate={{ opacity: 0, y: 120, scale: 1, height: 25 }}
+          transition={{ duration: 1.2, ease: "easeIn" }}
+          className="fixed z-50 pointer-events-none"
+          style={{ left: drop.x - 3, top: drop.y - 10 }}
+          onAnimationComplete={() => setDrops(prev => prev.filter(d => d.id !== drop.id))}
+        >
+          {/* Blood drop shape */}
+          <div className="w-[6px] h-full bg-gradient-to-b from-red-500/80 to-pink-600/90 shadow-[0_0_8px_rgba(220,38,38,0.6)]" style={{ borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%" }} />
+        </motion.div>
+      ))}
+    </>
+  );
+};
+
+const OvaryEvolutionLoop = () => {
+  return (
+    <div className="absolute inset-0 z-[-5] flex items-center justify-center pointer-events-none overflow-hidden opacity-50 mix-blend-screen">
+      {/* Central Core - Starts closed, expands, closes */}
+      <motion.div
+        animate={{
+          scale: [0.3, 1.5, 0.3],
+          rotate: [0, 180, 360],
+          borderRadius: ["40%", "60%", "40%"]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-[40vw] h-[40vw] min-w-[300px] min-h-[300px] max-w-[800px] max-h-[800px] bg-gradient-to-tr from-pink-600/20 via-purple-600/10 to-transparent blur-[80px]"
+      />
+      
+      {/* Outer Membrane - Blossoming effect */}
+      <motion.div
+        animate={{
+          scale: [0.5, 2, 0.5],
+          rotate: [360, 180, 0],
+          opacity: [0.2, 0.6, 0.2]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute w-[50vw] h-[50vw] min-w-[400px] min-h-[400px] max-w-[1000px] max-h-[1000px] bg-gradient-to-bl from-indigo-500/20 to-pink-500/10 blur-[100px] rounded-full border border-pink-500/5"
+      />
+
+      {/* Internal Cells / Follicles */}
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{
+            x: [0, Math.cos(i * 0.785) * (typeof window !== 'undefined' ? window.innerWidth * 0.3 : 300), 0],
+            y: [0, Math.sin(i * 0.785) * (typeof window !== 'undefined' ? window.innerHeight * 0.3 : 200), 0],
+            scale: [0.2, 1.5, 0.2],
+            opacity: [0, 0.5, 0]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+          className="absolute w-12 h-12 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-500/20 blur-2xl"
+        />
+      ))}
+    </div>
+  );
+};
+
 export default function Home() {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 200], [1, 0]);
@@ -22,6 +98,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 overflow-x-hidden selection:bg-pink-500/30">
+      <BloodDropInteraction />
       
       {/* GLOBAL NAVIGATION */}
       <header className="fixed top-0 left-0 w-full z-50 p-8">
@@ -49,6 +126,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <section className="relative min-h-screen flex flex-col items-center justify-center p-6 text-center pt-20">
         <AnimatedOvaryBackground />
+        <OvaryEvolutionLoop />
 
         <motion.div
           style={{ opacity, scale }}
@@ -85,45 +163,9 @@ export default function Home() {
               hidden: { opacity: 0, y: 30 },
               show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
             }}
-            className="relative text-8xl md:text-[140px] font-black tracking-tighter mb-8 leading-none"
+            className="relative text-8xl md:text-[140px] font-black tracking-tighter mb-8 leading-none z-10"
           >
-            {/* Ovary Evolution Background Animation */}
-            <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none opacity-60">
-              <motion.div
-                animate={{
-                  scale: [1, 1.3, 1],
-                  rotate: [0, 90, 180, 360],
-                  borderRadius: ["40%", "60%", "30%", "50%", "40%"]
-                }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[300px] h-[300px] md:w-[600px] md:h-[300px] bg-gradient-to-tr from-pink-600/30 to-purple-600/30 blur-[60px] mix-blend-screen"
-              />
-              <motion.div
-                animate={{
-                  scale: [1.3, 1, 1.3],
-                  rotate: [360, 180, 90, 0],
-                  borderRadius: ["50%", "30%", "50%", "40%", "50%"]
-                }}
-                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                className="absolute w-[250px] h-[250px] md:w-[500px] md:h-[250px] bg-gradient-to-bl from-indigo-500/30 to-pink-500/30 blur-[60px] mix-blend-screen"
-              />
-              {/* Evolving Follicles */}
-              {[...Array(6)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  animate={{
-                    x: [0, Math.cos(i * 1.047) * 200, 0],
-                    y: [0, Math.sin(i * 1.047) * 80, 0],
-                    scale: [0.5, 2, 0.5],
-                    opacity: [0.1, 0.6, 0.1]
-                  }}
-                  transition={{ duration: 8 + i * 1.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                  className="absolute w-16 h-16 rounded-full bg-pink-400 blur-2xl mix-blend-screen"
-                />
-              ))}
-            </div>
-
-            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-500 drop-shadow-2xl">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-500 drop-shadow-2xl">
               Femlytix
             </span>
           </motion.h1>
