@@ -117,7 +117,7 @@ export default function Home() {
             <Link href="/login" className="text-slate-400 hover:text-white transition-colors">Patient Web</Link>
           </nav>
 
-          <Link href="/admin">
+          <Link href="/login?mode=admin">
             <button className="px-6 py-2 text-xs font-bold text-pink-400 border border-pink-500/40 rounded-full hover:bg-pink-500/10 transition-all duration-300">
               Staff Portal
             </button>
@@ -202,7 +202,7 @@ export default function Home() {
               </button>
             </Link>
 
-            <Link href="/login">
+            <Link href="/login?mode=admin">
               <button className="px-10 py-5 bg-[#1e1b4b]/60 backdrop-blur-md border border-purple-900/30 text-slate-300 rounded-xl font-bold text-lg hover:bg-[#1e1b4b]/80 transition-all">
                 Admin Login
               </button>

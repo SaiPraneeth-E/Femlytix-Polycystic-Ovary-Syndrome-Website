@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Loader2, UserCog, ArrowLeft } from "lucide-react";
@@ -15,6 +15,15 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
     const [adminLoading, setAdminLoading] = useState(false);
     const [error, setError] = useState("");
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get("mode") === "admin") {
+                setMode("admin");
+            }
+        }
+    }, []);
 
     const handlePatientSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -138,9 +147,21 @@ export default function Login() {
                         
                         <button
                             type="button"
-                            onClick={() => {
+                            onClick={async () => {
                                 setLoading(true);
-                                setTimeout(() => router.push("/intake"), 800);
+                                try {
+                                    const { error } = await supabase.auth.signInWithOAuth({
+                                        provider: 'google',
+                                        options: {
+                                            redirectTo: `${window.location.origin}/intake`
+                                        }
+                                    });
+                                    if (error) throw error;
+                                } catch (error: any) {
+                                    console.error("Google Auth Error:", error);
+                                    setError(error.message || "Failed to sign in with Google.");
+                                    setLoading(false);
+                                }
                             }}
                             disabled={loading || adminLoading}
                             className="w-full flex justify-center items-center gap-3 bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 font-medium py-3 rounded-lg transition-all shadow-sm hover:shadow-md disabled:opacity-50"
