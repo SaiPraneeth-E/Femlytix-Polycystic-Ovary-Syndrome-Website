@@ -85,9 +85,45 @@ export default function Home() {
               hidden: { opacity: 0, y: 30 },
               show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
             }}
-            className="text-8xl md:text-[140px] font-black tracking-tighter mb-8 leading-none"
+            className="relative text-8xl md:text-[140px] font-black tracking-tighter mb-8 leading-none"
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-500 drop-shadow-2xl">
+            {/* Ovary Evolution Background Animation */}
+            <div className="absolute inset-0 z-[-1] flex items-center justify-center pointer-events-none opacity-60">
+              <motion.div
+                animate={{
+                  scale: [1, 1.3, 1],
+                  rotate: [0, 90, 180, 360],
+                  borderRadius: ["40%", "60%", "30%", "50%", "40%"]
+                }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute w-[300px] h-[300px] md:w-[600px] md:h-[300px] bg-gradient-to-tr from-pink-600/30 to-purple-600/30 blur-[60px] mix-blend-screen"
+              />
+              <motion.div
+                animate={{
+                  scale: [1.3, 1, 1.3],
+                  rotate: [360, 180, 90, 0],
+                  borderRadius: ["50%", "30%", "50%", "40%", "50%"]
+                }}
+                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                className="absolute w-[250px] h-[250px] md:w-[500px] md:h-[250px] bg-gradient-to-bl from-indigo-500/30 to-pink-500/30 blur-[60px] mix-blend-screen"
+              />
+              {/* Evolving Follicles */}
+              {[...Array(6)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{
+                    x: [0, Math.cos(i * 1.047) * 200, 0],
+                    y: [0, Math.sin(i * 1.047) * 80, 0],
+                    scale: [0.5, 2, 0.5],
+                    opacity: [0.1, 0.6, 0.1]
+                  }}
+                  transition={{ duration: 8 + i * 1.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                  className="absolute w-16 h-16 rounded-full bg-pink-400 blur-2xl mix-blend-screen"
+                />
+              ))}
+            </div>
+
+            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-indigo-500 drop-shadow-2xl">
               Femlytix
             </span>
           </motion.h1>
