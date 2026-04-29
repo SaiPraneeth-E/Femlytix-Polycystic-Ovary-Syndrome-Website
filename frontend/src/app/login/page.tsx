@@ -38,11 +38,30 @@ export default function Login() {
         setAdminLoading(true);
         setError("");
         
-        // Completely bypass Supabase for Admin login to prevent fetch errors
-        // Simulating a quick network validation delay
-        setTimeout(() => {
-            router.push("/admin");
-        }, 800);
+        const isRootAdmin = email === "pcosadmin7813@gmail.com" && password === "admin@7813.";
+        let isStaff = false;
+        
+        try {
+            const stored = localStorage.getItem('invitedStaff');
+            if (stored) {
+                const users = JSON.parse(stored);
+                const staffUser = users.find((u: any) => u.email === email && u.active && (u.role === "SysAdmin" || u.role === "Doctor" || u.role === "Nurse"));
+                if (staffUser && password === "staff123") {
+                    isStaff = true;
+                }
+            }
+        } catch (e) {
+            console.error("Error reading staff data", e);
+        }
+
+        if (isRootAdmin || isStaff) {
+            setTimeout(() => {
+                router.push("/admin");
+            }, 800);
+        } else {
+            setAdminLoading(false);
+            setError("Invalid administrator credentials or unauthorized access.");
+        }
     };
 
     return (

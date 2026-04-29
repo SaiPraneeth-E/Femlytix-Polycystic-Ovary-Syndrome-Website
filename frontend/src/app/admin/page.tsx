@@ -23,7 +23,8 @@ import AnimatedOvaryBackground from "@/components/AnimatedOvaryBackground";
 
 
 
-const initialUsers = [
+const defaultUsers = [
+  { id: "USR-000", name: "Root Admin", role: "SysAdmin", email: "pcosadmin7813@gmail.com", active: true },
   { id: "USR-001", name: "Dr. Jane Smith", role: "SysAdmin", email: "jane.smith@clinic.com", active: true },
   { id: "USR-002", name: "Mark Torres", role: "Nurse", email: "mtorres@clinic.com", active: true },
   { id: "USR-003", name: "Dr. Alan Grant", role: "Doctor", email: "agrant@clinic.com", active: false },
@@ -42,7 +43,7 @@ export default function AdminDashboard() {
   
   // States for interactive features
   const [selectedPatient, setSelectedPatient] = useState<any>(null);
-  const [systemUsers, setSystemUsers] = useState(initialUsers);
+  const [systemUsers, setSystemUsers] = useState(defaultUsers);
   
   const [livePatients, setLivePatients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -61,6 +62,13 @@ export default function AdminDashboard() {
          console.error("Failed to fetch patients", err);
          setLoading(false);
       });
+
+    const storedStaff = localStorage.getItem('invitedStaff');
+    if (storedStaff) {
+      setSystemUsers(JSON.parse(storedStaff));
+    } else {
+      localStorage.setItem('invitedStaff', JSON.stringify(defaultUsers));
+    }
   }, []);
 
   const totalPatients = livePatients.length;
@@ -80,21 +88,49 @@ export default function AdminDashboard() {
 
   // User Management functions
   const toggleUserRole = (id: string) => {
-    setSystemUsers(prev => prev.map(u => {
-      if (u.id === id) {
-        return { ...u, role: u.role === "SysAdmin" ? "Patient" : "SysAdmin" };
-      }
-      return u;
-    }));
+    setSystemUsers(prev => {
+      const updated = prev.map(u => {
+        if (u.id === id) {
+          return { ...u, role: u.role === "SysAdmin" ? "Patient" : "SysAdmin" };
+        }
+        return u;
+      });
+      localStorage.setItem('invitedStaff', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const toggleUserAccess = (id: string) => {
-    setSystemUsers(prev => prev.map(u => {
-      if (u.id === id) {
-        return { ...u, active: !u.active };
-      }
-      return u;
-    }));
+    setSystemUsers(prev => {
+      const updated = prev.map(u => {
+        if (u.id === id) {
+          return { ...u, active: !u.active };
+        }
+        return u;
+      });
+      localStorage.setItem('invitedStaff', JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const handleInviteStaff = () => {
+    const email = window.prompt("Enter staff email to invite:");
+    if (!email) return;
+    const name = window.prompt("Enter staff name:");
+    const newId = `USR-${Math.floor(1000 + Math.random() * 9000)}`;
+    const newUser = {
+      id: newId,
+      name: name || "New Staff",
+      role: "Doctor",
+      email: email,
+      active: true
+    };
+    setSystemUsers(prev => {
+      const updated = [...prev, newUser];
+      localStorage.setItem('invitedStaff', JSON.stringify(updated));
+      return updated;
+    });
+    alert(`Staff invited successfully! They can log in with password: staff123`);
   };
 
   return (
@@ -355,7 +391,7 @@ export default function AdminDashboard() {
                   <Shield className="w-6 h-6 text-purple-400" />
                   System Authorization Roles
                </h2>
-               <button type="button" className="bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium px-6 py-2 rounded-full transition-colors shadow-lg">
+               <button type="button" onClick={handleInviteStaff} className="bg-pink-600 hover:bg-pink-500 text-white text-sm font-medium px-6 py-2 rounded-full transition-colors shadow-lg">
                  + Invite Staff
                </button>
              </div>
