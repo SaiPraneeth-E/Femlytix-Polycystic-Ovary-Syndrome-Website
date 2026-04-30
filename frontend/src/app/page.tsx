@@ -6,39 +6,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown, Mail, Linkedin, Github, Activity, ShieldAlert, Brain, FileText, Database, CheckCircle } from "lucide-react";
 import AnimatedOvaryBackground, { OvaryIcon } from "@/components/AnimatedOvaryBackground";
 
-const BloodDropInteraction = () => {
-  const [drops, setDrops] = useState<{ id: number; x: number; y: number }[]>([]);
-
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      // Don't trigger if clicking on an interactive element (like a button/link) if we want to be safe,
-      // but the prompt says "On any user interaction (click/tap anywhere on the page)".
-      setDrops(prev => [...prev, { id: Date.now(), x: e.clientX, y: e.clientY }]);
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
-
-  return (
-    <>
-      {drops.map(drop => (
-        <motion.div
-          key={drop.id}
-          initial={{ opacity: 1, y: 0, scale: 0.5, height: 10 }}
-          animate={{ opacity: 0, y: 120, scale: 1, height: 25 }}
-          transition={{ duration: 1.2, ease: "easeIn" }}
-          className="fixed z-50 pointer-events-none"
-          style={{ left: drop.x - 3, top: drop.y - 10, willChange: "transform, opacity" }}
-          onAnimationComplete={() => setDrops(prev => prev.filter(d => d.id !== drop.id))}
-        >
-          {/* Blood drop shape */}
-          <div className="w-[6px] h-full bg-gradient-to-b from-red-500/90 to-pink-600/90" style={{ borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%" }} />
-        </motion.div>
-      ))}
-    </>
-  );
-};
-
 const OvaryEvolutionLoop = () => {
   return (
     <div className="absolute inset-0 z-[-5] flex items-center justify-center pointer-events-none overflow-hidden opacity-50">
@@ -100,8 +67,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-200 overflow-x-hidden selection:bg-pink-500/30">
-      <BloodDropInteraction />
-      
       {/* GLOBAL NAVIGATION */}
       <header className="fixed top-0 left-0 w-full z-50 p-8">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
